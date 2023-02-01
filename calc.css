@@ -16,17 +16,18 @@
 }
 
 .grid-child{
-    background-color: white;
+    background-color: #f8f8f8;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
+    border: none;
 }
 
 .grid-child:hover{
     background-color: rgb(245, 243, 243);
-    border: 1px solid rgb(226, 223, 223);;
+    /* border: 1px solid rgb(226, 223, 223);; */
 }
 
 .child1{
@@ -57,6 +58,7 @@
 .nums{
     font-size: 16px;
     font-weight: 600;
+    background-color: #fdfdfd;
 }
 
 .op{
@@ -65,4 +67,9 @@
 
 .del-img{
     height: 19px;
+}
+
+.equal{
+    background-color: #91c1e7;
+    pointer-events: none;
 }
