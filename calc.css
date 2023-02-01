@@ -27,12 +27,36 @@
 
 .grid-child:hover{
     background-color: rgb(245, 243, 243);
-    /* border: 1px solid rgb(226, 223, 223);; */
 }
+
 
 .child1{
     grid-column: 1/6;
     grid-row: 1/5;
+    display: flex;
+    flex-direction: column;
+}
+
+.ip-screen {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #f8f8f8;
+}
+
+.ip-screen:focus {
+    outline: none;
+}
+
+.op-screen {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #f8f8f8;
+}
+
+.op-screen:focus {
+    outline: none;
 }
 
 .child3{
@@ -71,5 +95,12 @@
 
 .equal{
     background-color: #91c1e7;
-    pointer-events: none;
+}
+
+.equal:hover {
+    background-color: #82b8e4;
+}
+
+.fminuse, .degree {
+    font-weight: 500;
 }
