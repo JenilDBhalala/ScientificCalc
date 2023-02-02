@@ -11,8 +11,8 @@ body{
     display: grid;
     grid-template-columns: repeat(5,1fr);
     grid-template-rows: repeat(12,1fr);
-    height: 670px;
-    width: 460px;
+    height: 82vh;
+    width: 30vw;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
@@ -101,7 +101,6 @@ body{
     display: flex;
     justify-content: flex-end;
     align-items: center;
-
 }
 
 .op-screen:focus {

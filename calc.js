@@ -4,28 +4,42 @@ const bottomKeys = document.querySelector('.bottom-grid');
 
 
 //evaluation
-function evaluate(txt) {
-    outputScreen.innerText = eval(outputScreen.innerText + inputScreen.innerText) + txt;
+function evaluate(key) {
+    if(outputScreen.innerText == ''){
+        outputScreen.innerText = inputScreen.innerText + key;
+    }
+    else if(inputScreen.innerText.length>0 && outputScreen.innerText.includes('^')){
+        let len = outputScreen.innerText.length;
+        let x = outputScreen.innerText.slice(0, len-1);
+        let y = inputScreen.innerText;
+        outputScreen.innerText = eval(Math.pow(x,y));
+    }
+    else{
+        outputScreen.innerText = eval(outputScreen.innerText + inputScreen.innerText) + key;
+    }
 }
 
 bottomKeys.addEventListener('click', (e) => {
     let classes = e.target.classList;
-    let txt = e.target.innerText;
+    let key = e.target.innerText;
 
     if (classes.contains('nums') || classes.contains('point') ) {
-        inputScreen.innerText = inputScreen.innerText + txt;
+        inputScreen.innerText = inputScreen.innerText + key;
     }
     else if (classes.contains('op')) {
         if (classes.contains('multiply')) {
-            txt = '*';
+            key = '*';
         }
         else if (classes.contains('division')) {
-            txt = '/';
+            key = '/';
         }
         else if (classes.contains('modulo')) {
-            txt = '%';
+            key = '%';
         }
-        evaluate(txt);
+        else if (classes.contains('xpowy')) {
+            key = '^';
+        }
+        evaluate(key);
         inputScreen.innerText = '';
     }
     else if(classes.contains('pi')){
@@ -63,7 +77,7 @@ bottomKeys.addEventListener('click', (e) => {
         inputScreen.innerText = eval(Math.pow(inputScreen.innerText,1/2));
     }
     else if (classes.contains('equal')) {
-        evaluate(txt);
+        evaluate(key);
     }
 })
 
