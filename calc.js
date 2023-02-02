@@ -63,25 +63,18 @@ bottomKeys.addEventListener('click', (e) => {
     else if(classes.contains('inverse')){
         inputScreen.innerText = eval(1/inputScreen.innerText);
     }
-    else if(classes.contains('pow')){
-        inputScreen.innerText = eval(Math.PI);
+    else if(classes.contains('abs')){
+        inputScreen.innerText = eval(Math.abs(inputScreen.innerText));
     }
-    else if(classes.contains('pow')){
-        inputScreen.innerText = eval(Math.PI);
+    else if(classes.contains('exp')){
+        inputScreen.innerText = eval(Math.pow(Math.E,inputScreen.innerText));
     }
-    else if(classes.contains('pow')){
-        inputScreen.innerText = eval(Math.PI);
-    }
-    else if(classes.contains('pow')){
-        inputScreen.innerText = eval(Math.PI);
-    }
-    else if(classes.contains('pow')){
-        inputScreen.innerText = eval(Math.PI);
+    else if(classes.contains('sqrt')){
+        inputScreen.innerText = eval(Math.pow(inputScreen.innerText,1/2));
     }
     else if (classes.contains('equal')) {
         evaluate(txt);
     }
-    
 })
 
 
