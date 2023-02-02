@@ -1,12 +1,3 @@
-// const nums = document.querySelectorAll('.nums');
-// const operators = document.querySelectorAll('.op');
-// const func = document.querySelectorAll('.func');
-// const del = document.querySelector('.del');
-// const delall = document.querySelector('.delall');
-// const equal = document.querySelector('.equal');
-// const point = document.querySelector('.point');
-
-
 const inputScreen = document.querySelector('.ip-screen');
 const outputScreen = document.querySelector('.op-screen');
 const bottomKeys = document.querySelector('.bottom-grid');
@@ -16,7 +7,6 @@ const bottomKeys = document.querySelector('.bottom-grid');
 function evaluate(txt) {
     outputScreen.innerText = eval(outputScreen.innerText + inputScreen.innerText) + txt;
 }
-
 
 bottomKeys.addEventListener('click', (e) => {
     let classes = e.target.classList;
