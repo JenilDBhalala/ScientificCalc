@@ -28,7 +28,7 @@ body{
 
 
 .top-grid-items{
-    background-color: #f8f8f8;
+    /* background-color: #f8f8f8; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,7 +50,7 @@ body{
 
 
 .bottom-grid-items{
-    background-color: #f8f8f8;
+    /* background-color: #f8f8f8; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -72,14 +72,14 @@ body{
     display: grid;
     font-family: 'Roboto', sans-serif;
     justify-self: flex-end;
-    background-color: #f8f8f8;
+    /* background-color: #f8f8f8; */
 }
 
 .ip-screen {
     width: 100%;
     height: 100%;
     border: none;
-    background-color: #f8f8f8;
+    /* background-color: #f8f8f8; */
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -88,25 +88,16 @@ body{
 }
 
 
-.ip-screen:focus {
-    outline: none;
-}
-
-
 .op-screen {
     width: 100%;
     height: 100%;
     border: none;
-    background-color: #f8f8f8;
+    /* background-color: #f8f8f8; */
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    color: gray;
 }
-
-.op-screen:focus {
-    outline: none;
-}
-
 
 
 .child3{
@@ -153,4 +144,41 @@ body{
 
 .fminuse, .degree {
     font-weight: 500;
+}
+
+
+.active{
+    background-color: #91c1e7;
+}
+
+
+.active:hover{
+    background-color: #82b8e4;
+}
+
+
+.cube{
+    display: none;
+}
+
+.cbrt{
+    display: none;
+}
+
+.ythroot{
+    display: none;
+}
+
+.twopowx{
+    display: none;
+}
+
+
+.logxbasey{
+    display: none;
+}
+
+
+.epowx{
+    display: none;
 }
