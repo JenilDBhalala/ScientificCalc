@@ -100,6 +100,12 @@ body{
 }
 
 
+
+/* .trigonometry-grid{
+    display: none;
+} */
+
+
 .child3{
     grid-column: 2/6;
 }

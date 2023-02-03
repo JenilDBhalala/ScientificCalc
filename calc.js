@@ -2,6 +2,7 @@ const inputScreen = document.querySelector('.ip-screen');
 const outputScreen = document.querySelector('.op-screen');
 const bottomKeys = document.querySelector('.bottom-grid');
 
+// let str = '';
 
 //evaluation
 function evaluate(key) {
@@ -60,6 +61,7 @@ function toggleFunctionalities(classes){
 bottomKeys.addEventListener('click', (e) => {
     let classes = e.target.classList;
     let key = e.target.innerText;
+    // str += e.target.innerText;
 
     if (classes.contains('nums') || classes.contains('point')) {
         inputScreen.innerText = inputScreen.innerText + key;
@@ -99,6 +101,9 @@ bottomKeys.addEventListener('click', (e) => {
     else if (classes.contains('square')) {
         inputScreen.innerText = eval(Math.pow(inputScreen.innerText, 2));
     }
+    else if (classes.contains('cube')){
+        inputScreen.innerText = eval(Math.pow(inputScreen.innerText,3));
+    }
     else if (classes.contains('pi')) {
         inputScreen.innerText = eval(Math.PI);
     }
@@ -114,11 +119,17 @@ bottomKeys.addEventListener('click', (e) => {
     else if (classes.contains('sqrt')) {
         inputScreen.innerText = eval(Math.pow(inputScreen.innerText, 1 / 2));
     }
+    else if (classes.contains('cbrt')) {
+        inputScreen.innerText = eval(Math.pow(inputScreen.innerText, 1 / 3));
+    }
     else if (classes.contains('fact')) {
         inputScreen.innerText = factorial(inputScreen.innerText);
     }
-    else if (classes.contains('tenpow')) {
+    else if (classes.contains('tenpowx')) {
         inputScreen.innerText = eval(Math.pow(10, inputScreen.innerText));
+    }
+    else if (classes.contains('twopowx')) {
+        inputScreen.innerText = eval(Math.pow(2, inputScreen.innerText));
     }
     else if (classes.contains('equal')) {
         evaluate(key);
@@ -128,6 +139,9 @@ bottomKeys.addEventListener('click', (e) => {
     }
     else if (classes.contains('ln')) {
         inputScreen.innerText = eval(Math.log(inputScreen.innerText));
+    }
+    else if (classes.contains('epowx')) {
+        inputScreen.innerText = eval(Math.pow(Math.E, inputScreen.innerText));
     }
     else if (classes.contains('2nd')){
         if(classes.contains('active')){
@@ -141,7 +155,8 @@ bottomKeys.addEventListener('click', (e) => {
     else if (classes.contains('negate')){
         inputScreen.innerText = eval(-1 * inputScreen.innerText);
     }
-})
+
+}, true)
 
 
 
