@@ -194,20 +194,26 @@ const trigono = document.querySelector('.trigonometry');
 let str = '';
 let flag = false;
 
+//for storing memory
+const memory = [];
+
 //evaluation
 function evaluate(key) {
     console.log(str);
     if (outputScreen.innerText == '') {
         outputScreen.innerText = str + key;
     }
-    else if (inputScreen.innerText.length > 0 && str.includes('^')) {
-        // let len = outputScreen.innerText.length;
-        // let x = outputScreen.innerText.slice(0, len - 1);
-        // let y = inputScreen.innerText;
-        // outputScreen.innerText = eval(Math.pow(x, y)) + key;
-
-        // str += Math.pow(,inputScreen.innerText);
-        convertToMathPower(key);
+    else if (inputScreen.innerText.length > 0 && (str.includes('^') || str.includes('yroot') || str.includes('logbase'))) {
+        if(str.includes('^')){
+            calculate(key, '^');
+        }
+        else if(str.includes('yroot')){
+            calculate(key, 'yroot');
+        }
+        else if(str.includes('logbase')){
+            calculate(key, 'logbase')
+            console.log("hello")
+        }
     }
     else {
         outputScreen.innerText = str;
@@ -223,23 +229,19 @@ function evaluate(key) {
 
 
 //reverse the string
-function ReverseString(str) {
+function reverseString(str) {
     return str.split('').reverse().join('')
 }
 
-function convertToMathPower(key){
-    let len = str.length;
+//for x^y and yrootx functionality
+function calculate(key, operator){
     let revX = ''; 
     let posOfOperator1, posOfOperator2;
     const ops = ['*', '/', '%', '+', '-'];
 
     let y = inputScreen.innerText;
-    for(let i=len; i>=0; i--){
-        if(str[i] == '^'){
-            posOfOperator2 = i;
-            break;
-        }
-    }
+
+    posOfOperator2 = str.indexOf(operator);
 
     for(let i=posOfOperator2-1; i>=0; i--){
         if(ops.includes(str[i])){
@@ -251,11 +253,19 @@ function convertToMathPower(key){
         }
     }
 
-    let x = ReverseString(revX);
+    let x = reverseString(revX);
 
     let newstr = '';
     newstr += str.slice(0, posOfOperator1+1);
-    newstr += Math.pow(x, y);
+    if(operator == '^'){
+        newstr += Math.pow(x, y);
+    }
+    else if(operator == 'yroot'){
+        newstr += Math.pow(x, 1/y);
+    }
+    else if(operator == 'logbase'){
+        newstr += (Math.log(x)/Math.log(y));
+    }
     str = newstr;
 
     outputScreen.innerText += inputScreen.innerText;
@@ -263,6 +273,7 @@ function convertToMathPower(key){
     outputScreen.innerText += key;
     console.log(str);
 }
+
 
 //computing factorial of numbers using memoization
 var dp = [];
@@ -317,7 +328,6 @@ function removeFromBack(){
 }
 
 
-
 bottomKeys.addEventListener('click', (e) => {
     let classes = e.target.classList;
     let key = e.target.innerText;
@@ -344,14 +354,22 @@ bottomKeys.addEventListener('click', (e) => {
         else if (classes.contains('xpowy')) {
             key = '^';
         }
+        else if (classes.contains('ythroot')) {
+            key = "yroot";
+        }
+        else if (classes.contains('logxbasey')) {
+            key = "logbase";
+        }
         evaluate(key);
     }
     else if (classes.contains('pi')) {
         inputScreen.innerText = eval(Math.PI);
+        removeFromBack();
         str += inputScreen.innerText;
     }
     else if (classes.contains('euler')) {
         inputScreen.innerText = eval(Math.E);
+        removeFromBack();
         str += inputScreen.innerText;
     }
     else if (classes.contains('delall')) {
@@ -456,14 +474,62 @@ bottomKeys.addEventListener('click', (e) => {
 })
 
 
-// topKeys.addEventListener('click', (e) => {
-//     let classes = e.target.classList;
-//     let key = e.target.innerText;
+topKeys.addEventListener('click', (e) => {
+    let classes = e.target.classList;
+    let key = e.target.innerText;
+    let memoryClear = document.querySelector('.memory-clear');
+    let memoryRestore = document.querySelector('.memory-restore')
 
-//     if(classes.contains('trigonometry')){
-
-//     }
-// })
+    if(classes.contains('memory')){
+        if(classes.contains('memory-clear')){
+            memory.length = 0;
+            memoryClear.disabled = true;
+            memoryRestore.disabled = true;
+        }
+        else if(classes.contains('memory-restore')){
+            inputScreen.innerText = memory.slice(-1)[0];
+        }
+        else if(classes.contains('memory-plus')){
+            if(memory.length == 0 && inputScreen.innerText.length == 0){
+                memory.push(0);
+            }
+            else if(memory.length == 0 && inputScreen.innerText.length > 0){
+                memory.push(inputScreen.innerText);
+            }
+            else if(memory.length > 0 && inputScreen.innerText.length > 0){
+                memory.slice(-1)[0] = eval(memory.slice(-1)[0] + inputScreen.innerText);
+            }
+            memoryClear.disabled = false;
+            memoryRestore.disabled = false;
+        }
+        else if(classes.contains('memory-minus')){
+            if(memory.length == 0 && inputScreen.innerText.length == 0){
+                memory.push(0);
+            }
+            else if(memory.length == 0 && inputScreen.innerText.length > 0){
+                memory.push('-' + inputScreen.innerText);
+            }
+            else if(memory.length > 0 && inputScreen.innerText.length > 0){
+                memory.slice(-1)[0] = eval(memory.slice(-1)[0] - inputScreen.innerText);
+            }
+            memoryClear.disabled = false;
+            memoryRestore.disabled = false;
+        }
+        else if(classes.contains('memory-store')){
+            console.log("hello")
+            if(inputScreen.innerText == ''){
+                memory.push(0);
+            }
+            else if(inputScreen.innerText != ''){
+                memory.push(inputScreen.innerText);
+            }
+            memoryClear.disabled = false;
+            memoryRestore.disabled = false;
+        }
+        console.log(memory)
+        str = inputScreen.innerText;
+    }
+})
 
 
 trigono.addEventListener('click', (e) =>{
