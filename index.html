@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="calc.css" />
+    <link rel="stylesheet" href="./css/calc.css" />
+    <link rel="stylesheet" href="./css/trigonometry.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -47,14 +48,41 @@
           
           <!-- will apper when clicked on trigonometry button -->
           <div class="trigonometry-grid">
-            <button class="trigonometry-grid-items">2nd</button>
-            <button class="trigonometry-grid-items">sin</button>
-            <button class="trigonometry-grid-items">cos</button>
-            <button class="trigonometry-grid-items">tan</button>
-            <button class="trigonometry-grid-items">hyp</button>
-            <button class="trigonometry-grid-items">sec</button>
-            <button class="trigonometry-grid-items">csc</button>
-            <button class="trigonometry-grid-items">cot</button>
+            <button class="trigonometry-grid-items secondbtn">2nd</button>
+
+            <button class="trigonometry-grid-items sin normal">sin</button>
+            <button class="trigonometry-grid-items sin inverse">sin-1</button>
+            <button class="trigonometry-grid-items sin hyp">sinh</button>
+            <button class="trigonometry-grid-items sin hyp-inverse">sinh-1</button>
+
+            <button class="trigonometry-grid-items cos normal">cos</button>
+            <button class="trigonometry-grid-items cos inverse">cos-1</button>
+            <button class="trigonometry-grid-items cos hyp">cosh</button>
+            <button class="trigonometry-grid-items cos hyp-inverse">cosh-1</button>
+
+            <button class="trigonometry-grid-items tan normal">tan</button>
+            <button class="trigonometry-grid-items tan inverse">tan-1</button>
+            <button class="trigonometry-grid-items tan hyp">tanh</button>
+            <button class="trigonometry-grid-items tan hyp-inverse">tan-1</button>
+
+            <button class="trigonometry-grid-items hypbtn">hyp</button>
+
+            <button class="trigonometry-grid-items csc normal">csc</button>
+            <button class="trigonometry-grid-items csc inverse">csc-1</button>
+            <button class="trigonometry-grid-items csc hyp">csch</button>
+            <button class="trigonometry-grid-items csc hyp-inverse">csch-1</button>
+
+            <button class="trigonometry-grid-items sec normal">sec</button>
+            <button class="trigonometry-grid-items sec inverse">sec-1</button>
+            <button class="trigonometry-grid-items sec hyp">sech</button>
+            <button class="trigonometry-grid-items sec hyp-inverse">sech-1</button>
+
+            <button class="trigonometry-grid-items cot normal">cot</button>
+            <button class="trigonometry-grid-items cot inverse">cot-1</button>
+            <button class="trigonometry-grid-items cot hyp">coth</button>
+            <button class="trigonometry-grid-items cot hyp-inverse">coth-1</button>
+
+
           </div>
         </div>
 
@@ -123,7 +151,7 @@
           <div>x<sup>3</sup></div>
         </button>
 
-        <button class="bottom-grid-items func inverse">1/x</button>
+        <button class="bottom-grid-items func one-by-x">1/x</button>
         <button class="bottom-grid-items func abs">|x|</button>
         <button class="bottom-grid-items func exp">exp</button>
         <button class="bottom-grid-items op modulo">mod</button>
@@ -187,6 +215,6 @@
       </div>
     </div>
 
-    <script src="calc.js"></script>
+    <script type="module" src="calc.js"></script>
   </body>
 </html>
