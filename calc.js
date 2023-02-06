@@ -4,6 +4,7 @@ const bottomKeys = document.querySelector('.bottom-grid');
 const topKeys = document.querySelector('.top-grid');
 const trigonometry = document.querySelector('.trigonometry');
 const trigonometryGrid = document.querySelector('.trigonometry-grid');
+const functions = document.querySelector('.functions');
 
 import { factorial } from './factorial.js'
 import { toggleFunctionalities } from './toggle.js'
@@ -580,6 +581,43 @@ trigonometryGrid.addEventListener('click', (e) => {
 
 
 
+// functions 
+functions.addEventListener('click', (e) => {
+    let lastChildClass;
 
+    if (e.target.lastElementChild != undefined) {
+        lastChildClass = e.target.lastElementChild.classList;
 
+        if (lastChildClass.contains('functions-grid') && lastChildClass.contains('functions-click')) {
+            lastChildClass.remove('functions-click');
+        }
+        else {
+            lastChildClass.add('functions-click');
+        }
+    }
+    else if(e.target.classList.contains('functions-grid-items')){
+        let classes = e.target.classList;
+        
+        if(classes.contains('floor')){  
+            inputScreen.innerText = eval(Math.floor(inputScreen.innerText));
+        }
+        else if(classes.contains('ceil')){
+            inputScreen.innerText = eval(Math.ceil(inputScreen.innerText));
+        }
+        else if(classes.contains('abs')){
+            inputScreen.innerText = eval(Math.abs(inputScreen.innerText));
+        }
+        else if(classes.contains('random')){
+            inputScreen.innerText = eval(Math.random());
+        }
+        else if(classes.contains('dms')){
+            //inputScreen.innerText = eval(Math.floor(inputScreen.innerText));
+        }
+        else if(classes.contains('degree')){
+            //inputScreen.innerText = eval(Math.floor(inputScreen.innerText));
+        }
+        removeFromBack();
+        str += inputScreen.innerText;
+    }
+})
 
