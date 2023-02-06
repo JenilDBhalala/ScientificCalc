@@ -1,7 +1,9 @@
 const inputScreen = document.querySelector('.ip-screen');
 const outputScreen = document.querySelector('.op-screen');
+
 const bottomKeys = document.querySelector('.bottom-grid');
 const topKeys = document.querySelector('.top-grid');
+
 const trigonometry = document.querySelector('.trigonometry');
 const trigonometryGrid = document.querySelector('.trigonometry-grid');
 const functions = document.querySelector('.functions');
@@ -9,13 +11,16 @@ const functions = document.querySelector('.functions');
 import { factorial } from './factorial.js'
 import { toggleFunctionalities } from './toggle.js'
 
+//str is useful for any manipulation on expression which is hide from the user.
 let str = '';
+
 let flag = false;
 
-//for storing memory
+//for storing memory for operations like, M+, M-, MS, MR, MC
 const memory = [];
 
-//evaluation
+
+//evaluating string when any operator is pressed
 function evaluate(key) {
     console.log(str);
     if (outputScreen.innerText == '') {
@@ -46,12 +51,13 @@ function evaluate(key) {
 }
 
 
+
 //reverse the string
 function reverseString(str) {
     return str.split('').reverse().join('')
 }
 
-//for x^y and yrootx functionality
+//finding operands for x^y and yrootx functionalities
 function calculate(key, operator) {
     let revX = '';
     let posOfOperator1, posOfOperator2;
@@ -112,6 +118,7 @@ function removeFromBack() {
 }
 
 
+//evaluating bottom part functionalities on click event
 bottomKeys.addEventListener('click', (e) => {
     let classes = e.target.classList;
     let key = e.target.innerText;
@@ -258,8 +265,10 @@ bottomKeys.addEventListener('click', (e) => {
 })
 
 
+//evaluating top-part functionalities like memory functionalities, degree/radian and toExponential(F-E)
+let degreeFlag = true;
+let degreeOrRadian;
 
-//top-memory-part
 topKeys.addEventListener('click', (e) => {
     let classes = e.target.classList;
     let memoryClear = document.querySelector('.memory-clear');
@@ -313,12 +322,28 @@ topKeys.addEventListener('click', (e) => {
         console.log(memory)
         str = inputScreen.innerText;
     }
+    else if (e.target.classList.contains('fminuse') && inputScreen.innerText.length > 0) {
+        inputScreen.innerText = eval(inputScreen.innerText).toExponential();
+        removeFromBack();
+        str += inputScreen.innerText;
+    }
+    else if (e.target.classList.contains('degree')) {
+        e.target.classList.remove('degree');
+        e.target.classList.add('radian');
+        e.target.innerText = 'RAD';
+        degreeFlag = false;
+    }
+    else if (e.target.classList.contains('radian')) {
+        e.target.classList.remove('radian');
+        e.target.classList.add('degree');
+        e.target.innerText = 'DEG';
+        degreeFlag = true;
+    }
 })
 
 
 
-
-//trigonometry
+//displaying trigonometry-dropdown on click event
 trigonometry.addEventListener('click', (e) => {
     let lastChildClass;
 
@@ -335,9 +360,12 @@ trigonometry.addEventListener('click', (e) => {
 })
 
 
+
+//checking which trigonometry functionality enabled normal trigonometry, inverse-trigonometry, 
+//hyperbolic-trigonometry or inverse-hyperbolic-trigonometry
+
 let secondActiveFlag = false;
 let hyperActiveFlag = false;
-
 
 trigonometryGrid.addEventListener('click', (e) => {
     let normalFunctionalityFlag = false;
@@ -442,146 +470,115 @@ trigonometryGrid.addEventListener('click', (e) => {
             hyperbolicFunctionalityFlag = false;
             inverseHyperbolicFunctionalityFlag = true;
         }
-
     })
 
+    //checking if degree is enabled or radian is enabled
+    if(degreeFlag == true){
+        degreeOrRadian = inputScreen.innerText * (Math.PI / 180);
+    }
+    else{
+        degreeOrRadian = inputScreen.innerText;
+    }
+
+
+    //evaluating enabled normal trigonometry, inverse-trigonometry, hyperbolic-trigonometry or inverse-hyperbolic-trigonometry
     if (normalFunctionalityFlag == true) {
         if (classes.contains('sin')) {
-            inputScreen.innerText = eval(Math.sin(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(Math.sin(degreeOrRadian));
             console.log("hello sin")
         }
         else if (classes.contains('cos')) {
-            inputScreen.innerText = eval(Math.cos(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(Math.cos(degreeOrRadian));
         }
         else if (classes.contains('tan')) {
-            inputScreen.innerText = eval(Math.tan(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(Math.tan(degreeOrRadian));
         }
         else if (classes.contains('csc')) {
-            inputScreen.innerText = eval(1 / Math.sin(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(1 / Math.sin(degreeOrRadian));
         }
         else if (classes.contains('sec')) {
-            inputScreen.innerText = eval(1 / Math.cos(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(1 / Math.cos(degreeOrRadian));
         }
         else if (classes.contains('cot')) {
-            inputScreen.innerText = eval(1 / Math.tan(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(1 / Math.tan(degreeOrRadian));
         }
+        removeFromBack();
+        str += inputScreen.innerText;
     }
     else if (inverseFunctionalityFlag == true) {
         if (classes.contains('sin')) {
-            inputScreen.innerText = eval(Math.asin(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(Math.asin(degreeOrRadian));
             console.log("hello inverse")
         }
         else if (classes.contains('cos')) {
-            inputScreen.innerText = eval(Math.acos(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(Math.acos(degreeOrRadian));
         }
         else if (classes.contains('tan')) {
-            inputScreen.innerText = eval(Math.atan(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(Math.atan(degreeOrRadian));
         }
         else if (classes.contains('csc')) {
-            inputScreen.innerText = eval(1 / Math.asin(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(1 / Math.asin(degreeOrRadian));
         }
         else if (classes.contains('sec')) {
-            inputScreen.innerText = eval(1 / Math.acos(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(1 / Math.acos(degreeOrRadian));
         }
         else if (classes.contains('cot')) {
-            inputScreen.innerText = eval(1 / Math.atan(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(1 / Math.atan(degreeOrRadian));
         }
+        removeFromBack();
+        str += inputScreen.innerText;
     }
     else if (hyperbolicFunctionalityFlag == true) {
         if (classes.contains('sin')) {
-            inputScreen.innerText = eval(Math.sinh(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(Math.sinh(degreeOrRadian));
             console.log("hello hyper")
         }
         else if (classes.contains('cos')) {
-            inputScreen.innerText = eval(Math.cosh(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(Math.cosh(degreeOrRadian));
         }
         else if (classes.contains('tan')) {
-            inputScreen.innerText = eval(Math.tanh(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(Math.tanh(degreeOrRadian));
         }
         else if (classes.contains('csc')) {
-            inputScreen.innerText = eval(1 / Math.sinh(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(1 / Math.sinh(degreeOrRadian));
         }
         else if (classes.contains('sec')) {
-            inputScreen.innerText = eval(1 / Math.cosh(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(1 / Math.cosh(degreeOrRadian));
         }
         else if (classes.contains('cot')) {
-            inputScreen.innerText = eval(1 / Math.tanh(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(1 / Math.tanh(degreeOrRadian));
         }
+        removeFromBack();
+        str += inputScreen.innerText;
     }
     else if (inverseHyperbolicFunctionalityFlag == true) {
         if (classes.contains('sin')) {
-            inputScreen.innerText = eval(Math.asinh(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(Math.asinh(degreeOrRadian));
             console.log("hello inverse hyper")
         }
         else if (classes.contains('cos')) {
-            inputScreen.innerText = eval(Math.acosh(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(Math.acosh(degreeOrRadian));
         }
         else if (classes.contains('tan')) {
-            inputScreen.innerText = eval(Math.atanh(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(Math.atanh(degreeOrRadian));
         }
         else if (classes.contains('csc')) {
-            inputScreen.innerText = eval(1 / Math.asinh(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(1 / Math.asinh(degreeOrRadian));
         }
         else if (classes.contains('sec')) {
-            inputScreen.innerText = eval(1 / Math.acosh(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(1 / Math.acosh(degreeOrRadian));
         }
         else if (classes.contains('cot')) {
-            inputScreen.innerText = eval(1 / Math.atanh(inputScreen.innerText));
-            removeFromBack();
-            str += inputScreen.innerText;
+            inputScreen.innerText = eval(1 / Math.atanh(degreeOrRadian));
         }
+        removeFromBack();
+        str += inputScreen.innerText;
     }
 })
 
 
 
-// functions 
+// functions dropdown
 functions.addEventListener('click', (e) => {
     let lastChildClass;
 
@@ -595,26 +592,26 @@ functions.addEventListener('click', (e) => {
             lastChildClass.add('functions-click');
         }
     }
-    else if(e.target.classList.contains('functions-grid-items')){
+    else if (e.target.classList.contains('functions-grid-items')) {
         let classes = e.target.classList;
-        
-        if(classes.contains('floor')){  
+
+        if (classes.contains('floor')) {
             inputScreen.innerText = eval(Math.floor(inputScreen.innerText));
         }
-        else if(classes.contains('ceil')){
+        else if (classes.contains('ceil')) {
             inputScreen.innerText = eval(Math.ceil(inputScreen.innerText));
         }
-        else if(classes.contains('abs')){
+        else if (classes.contains('abs')) {
             inputScreen.innerText = eval(Math.abs(inputScreen.innerText));
         }
-        else if(classes.contains('random')){
+        else if (classes.contains('random')) {
             inputScreen.innerText = eval(Math.random());
         }
-        else if(classes.contains('dms')){
-            //inputScreen.innerText = eval(Math.floor(inputScreen.innerText));
+        else if (classes.contains('dms')) {
+            //remaining
         }
-        else if(classes.contains('degree')){
-            //inputScreen.innerText = eval(Math.floor(inputScreen.innerText));
+        else if (classes.contains('degree')) {
+            //remaining
         }
         removeFromBack();
         str += inputScreen.innerText;
