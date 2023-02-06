@@ -39,8 +39,22 @@ function evaluate(key) {
         }
     }
     else {
+        const operators = ['+', '-', '/', '*', '%', '='];
+
+        let newstr = '';
+        if(operators.includes(str[str.length-1]) && key != '(' && key != ')'){
+            newstr += str.slice(0, str.length-1);
+            str = newstr;
+        }
+
         outputScreen.innerText = str;
-        inputScreen.innerText = eval(outputScreen.innerText);
+
+        try{
+            inputScreen.innerText = eval(str);
+        }
+        catch(e){
+            inputScreen.innerText = 'Unexpected Expression'
+        }
 
         outputScreen.innerText = str + key;
 
