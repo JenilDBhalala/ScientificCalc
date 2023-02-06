@@ -10,6 +10,7 @@ const functions = document.querySelector('.functions');
 
 import { factorial } from './factorial.js'
 import { toggleFunctionalities } from './toggle.js'
+import { convertDMSToDegree, convertDegreeToDMS } from './degreeDms.js';
 
 //str is useful for any manipulation on expression which is hide from the user.
 let str = '';
@@ -28,13 +29,13 @@ function evaluate(key) {
     }
     else if (inputScreen.innerText.length > 0 && (str.includes('^') || str.includes('yroot') || str.includes('logbase'))) {
         if (str.includes('^')) {
-            calculate(key, '^');
+            findOperands(key, '^');
         }
         else if (str.includes('yroot')) {
-            calculate(key, 'yroot');
+            findOperands(key, 'yroot');
         }
         else if (str.includes('logbase')) {
-            calculate(key, 'logbase')
+            findOperands(key, 'logbase')
             console.log("hello")
         }
     }
@@ -72,7 +73,7 @@ function reverseString(str) {
 }
 
 //finding operands for x^y and yrootx functionalities
-function calculate(key, operator) {
+function findOperands(key, operator) {
     let revX = '';
     let posOfOperator1, posOfOperator2;
     const ops = ['*', '/', '%', '+', '-'];
@@ -132,12 +133,24 @@ function removeFromBack() {
 }
 
 
+//if after equalTo operator any number is come then delete everything
+function removeAnythingComeAfterEqualTo(){
+    let len = outputScreen.innerText.length;
+    if(outputScreen.innerText[len-1] == '='){
+        outputScreen.innerText = '';
+        inputScreen.innerText = '';
+        str = '';
+    }
+}
+
 //evaluating bottom part functionalities on click event
 bottomKeys.addEventListener('click', (e) => {
     let classes = e.target.classList;
     let key = e.target.innerText;
 
     if (classes.contains('nums') || classes.contains('point')) {
+        removeAnythingComeAfterEqualTo();
+
         if (inputScreen.innerText.length >= 0 && flag == false) {
             inputScreen.innerText = '';
             flag = true;
@@ -622,10 +635,18 @@ functions.addEventListener('click', (e) => {
             inputScreen.innerText = eval(Math.random());
         }
         else if (classes.contains('dms')) {
-            //remaining
+            inputScreen.innerText = convertDegreeToDMS(inputScreen.innerText);
         }
-        else if (classes.contains('degree')) {
-            //remaining
+        else if (classes.contains('deg')) {
+            let pos1 = inputScreen.innerText.indexOf('°');
+            let pos2 = inputScreen.innerText.indexOf("'");
+            let pos3 = inputScreen.innerText.indexOf('"');
+
+            let degrees = inputScreen.innerText.slice(0, pos1);
+            let minutes = inputScreen.innerText.slice(pos1+1, pos2);
+            let seconds = inputScreen.innerText.slice(pos2+1, pos3);
+            console.log(degrees, minutes, seconds);
+            inputScreen.innerText = convertDMSToDegree(degrees, minutes, seconds);
         }
         removeFromBack();
         str += inputScreen.innerText;
