@@ -12,6 +12,13 @@ import { factorial } from './factorial.js'
 import { toggleFunctionalities } from './toggle.js'
 import { convertFloatingToDMS, convertDMSToFloating } from './floating-dms.js';
 
+
+//instead of (e.target.classList.contains) on many elements i have used (e.target.closest)
+//because some elements are deeper inside it's parent, so whenever this deeper child clicked then
+//also parent event will be called. For Example in case of x^3, 10^x etc.
+
+
+
 //str is useful for any manipulation on expression which is hide from the user.
 let str = '';
 
@@ -142,6 +149,7 @@ function removeAnythingComeAfterEqualTo(){
         str = '';
     }
 }
+
 
 //evaluating bottom part functionalities on click event
 bottomKeys.addEventListener('click', (e) => {
@@ -289,8 +297,8 @@ bottomKeys.addEventListener('click', (e) => {
         removeFromBack();
         str += inputScreen.innerText;
     }
-
 })
+
 
 
 //evaluating top-part functionalities like memory functionalities, degree/radian and toExponential(F-E)
