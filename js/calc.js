@@ -10,7 +10,7 @@ const functions = document.querySelector('.functions');
 
 import { factorial } from './factorial.js'
 import { toggleFunctionalities } from './toggle.js'
-import { convertDMSToDegree, convertDegreeToDMS } from './degreeDms.js';
+import { convertFloatingToDMS, convertDMSToFloating } from './floating-dms.js';
 
 //str is useful for any manipulation on expression which is hide from the user.
 let str = '';
@@ -147,7 +147,7 @@ function removeAnythingComeAfterEqualTo(){
 bottomKeys.addEventListener('click', (e) => {
     let classes = e.target.classList;
     let key = e.target.innerText;
-
+   
     if (classes.contains('nums') || classes.contains('point')) {
         removeAnythingComeAfterEqualTo();
 
@@ -159,7 +159,8 @@ bottomKeys.addEventListener('click', (e) => {
         str += key;
         console.log(str)
     }
-    else if (classes.contains('op')) {
+    // else if (classes.contains('op')) {
+    else if (e.target.closest('.op')) {
         if (classes.contains('multiply')) {
             key = '*';
         }
@@ -169,13 +170,13 @@ bottomKeys.addEventListener('click', (e) => {
         else if (classes.contains('modulo')) {
             key = '%';
         }
-        else if (classes.contains('xpowy')) {
+        else if (e.target.closest('.xpowy')) {
             key = '^';
         }
-        else if (classes.contains('ythroot')) {
+        else if (e.target.closest('.ythroot')) {
             key = "yroot";
         }
-        else if (classes.contains('logxbasey')) {
+        else if (e.target.closest('.logxbasey')) {
             key = "logbase";
         }
         evaluate(key);
@@ -195,7 +196,7 @@ bottomKeys.addEventListener('click', (e) => {
         outputScreen.innerText = '';
         str = '';
     }
-    else if (classes.contains('del')) {
+    else if (e.target.closest('.del')) {
         let txt = inputScreen.innerText;
         let newtxt = txt.slice(0, txt.length - 1);
         inputScreen.innerText = newtxt;
@@ -203,12 +204,12 @@ bottomKeys.addEventListener('click', (e) => {
         removeFromBack();
         str += newtxt;
     }
-    else if (classes.contains('square')) {
+    else if (e.target.closest('.square')) {
         inputScreen.innerText = eval(Math.pow(inputScreen.innerText, 2));
         removeFromBack();
         str += inputScreen.innerText;
     }
-    else if (classes.contains('cube')) {
+    else if (e.target.closest('.cube')) {
         inputScreen.innerText = eval(Math.pow(inputScreen.innerText, 3));
         removeFromBack();
         str += inputScreen.innerText;
@@ -246,12 +247,12 @@ bottomKeys.addEventListener('click', (e) => {
         removeFromBack();
         str += inputScreen.innerText;
     }
-    else if (classes.contains('tenpowx')) {
+    else if (e.target.closest('.tenpowx')) {
         inputScreen.innerText = eval(Math.pow(10, inputScreen.innerText));
         removeFromBack();
         str += inputScreen.innerText;
     }
-    else if (classes.contains('twopowx')) {
+    else if (e.target.closest('.twopowx')) {
         inputScreen.innerText = eval(Math.pow(2, inputScreen.innerText));
         removeFromBack();
         str += inputScreen.innerText;
@@ -269,12 +270,12 @@ bottomKeys.addEventListener('click', (e) => {
         removeFromBack();
         str += inputScreen.innerText;
     }
-    else if (classes.contains('epowx')) {
+    else if (e.target.closest('.epowx')) {
         inputScreen.innerText = eval(Math.pow(Math.E, inputScreen.innerText));
         removeFromBack();
         str += inputScreen.innerText;
     }
-    else if (classes.contains('2nd')) {
+    else if (classes.contains('second-version')) {
         if (classes.contains('active')) {
             classes.remove('active');
         }
@@ -635,7 +636,7 @@ functions.addEventListener('click', (e) => {
             inputScreen.innerText = eval(Math.random());
         }
         else if (classes.contains('dms')) {
-            inputScreen.innerText = convertDegreeToDMS(inputScreen.innerText);
+            inputScreen.innerText = convertFloatingToDMS(inputScreen.innerText);
         }
         else if (classes.contains('deg')) {
             let pos1 = inputScreen.innerText.indexOf('°');
@@ -646,7 +647,7 @@ functions.addEventListener('click', (e) => {
             let minutes = inputScreen.innerText.slice(pos1+1, pos2);
             let seconds = inputScreen.innerText.slice(pos2+1, pos3);
             console.log(degrees, minutes, seconds);
-            inputScreen.innerText = convertDMSToDegree(degrees, minutes, seconds);
+            inputScreen.innerText = convertDMSToFloating(degrees, minutes, seconds);
         }
         removeFromBack();
         str += inputScreen.innerText;

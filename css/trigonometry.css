@@ -1,7 +1,6 @@
 .trigonometry {
     grid-column: 1/3;
     position: relative;
-    user-select: none;
 }
 
 .trigonometry-grid{
@@ -10,7 +9,6 @@
     top: 48px;
     left: 20px;
     background-color: #ccc9c9;
-    user-select: none;
 }
 
 .trigonometry-click{
